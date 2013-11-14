@@ -1,6 +1,10 @@
 package me.prettyprint.cassandra.serializers;
 
+import static me.prettyprint.hector.api.ddl.ComparatorType.DOUBLETYPE;
+
 import java.nio.ByteBuffer;
+
+import me.prettyprint.hector.api.ddl.ComparatorType;
 
 import me.prettyprint.cassandra.serializers.AbstractSerializer;
 import me.prettyprint.cassandra.serializers.LongSerializer;
@@ -30,6 +34,11 @@ public class DoubleSerializer extends AbstractSerializer<Double> {
   public Double fromByteBuffer(ByteBuffer bytes) {
     Long l = LongSerializer.get().fromByteBuffer(bytes);
     return l == null ? null : Double.longBitsToDouble (l);
+  }
+  
+  @Override
+  public ComparatorType getComparatorType() {
+    return DOUBLETYPE;
   }
 
 }
